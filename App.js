@@ -11,17 +11,22 @@ import HomeScreen from "./Components/HomeScreen";
 
 import  SettingsScreen from "./Components/SettingScreen";
 
-import Inventory from "./Components/Inventory";
+import InventoryMain from "./Modules/Inventory Module/InventoryMain";
+import InventoryHome from "./Modules/Inventory Module/InventoryHome";
 
 import SolveAProblem from "./Components/SolveAProblem";
 
 import WorkManager from "./Components/WorkManager";
+
+import RegisterItem from "./Modules/Inventory Module/registerItem";
 
 
 import {
     createBottomTabNavigator,
     createStackNavigator,
 } from 'react-navigation';
+import AllItems from "./Modules/Inventory Module/allItems";
+
 
 
 const App = () => (
@@ -31,8 +36,12 @@ const App = () => (
 );
 
 const InventoryStack = createStackNavigator({
-    InventoryModule: Inventory,
-    Details: DetailsScreen
+    InventoryHome: InventoryHome,
+    InventoryModule: InventoryMain,
+    Details: DetailsScreen,
+    RegisterItem: RegisterItem,
+    AllItems: AllItems
+
 });
 
 const WorkManagerStack = createStackNavigator({
