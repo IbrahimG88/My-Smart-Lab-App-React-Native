@@ -14,10 +14,13 @@ class AllItems extends Component {
             allItems: [],
             searchResults:[],
             showSearchedItems: true,
-            showAllItemsList: true
+            showAllItemsList: true,
+            editActive: false
         };
 
         this.searchFunction = this.searchFunction.bind(this);
+        this.editActivating =   this.editActivating.bind(this);
+        this.editText= this.editText.bind(this);
       // this.searchToggle =  this.searchToggle.bind(this);
 
         //note that  this.allItemsList = this.state.allItems
@@ -52,7 +55,19 @@ class AllItems extends Component {
         })
     }
 
+    editActivating(){
+        this.setState({editActive:!this.state.editActive});
+        console.log(this.state.editActive);
+    }
+
+    editText(text, index){
+        let allItemsCopy = [...this.state.allItems];
+        allItemsCopy[index] = text;
+        this.setState({allItems: allItemsCopy});
+    }
+
     render(){
+        const editActive = this.state.editActive;
         return(
                 <Container>
                     <Header>
@@ -62,22 +77,30 @@ class AllItems extends Component {
                     </Header>
                     <Content>
                         <List>
-            {this.state.allItems.map((item)=>{
+            {this.state.allItems.map((item, index)=>{
                 if(this.state.showAllItemsList){
                 return(
                             <ListItem>
                                 <Text>{item}</Text>
+                                <Button onPress={this.editActivating}><Text>Edit</Text></Button>
+                                {editActive ?
+                                    (<Input value={item} onChangeText={(text)=>{this.editText(text,index)}}/>) :
+                                null}
                             </ListItem>)}
             })
             }
 
                 </List>
                         <List>
-                            {this.state.searchResults.map((item)=>{
+                            {this.state.searchResults.map((item,index)=>{
                             if(this.state.showSearchedItems){
                                 return(
                                 <ListItem>
                                 <Text>{item}</Text>
+                                    <Button onPress={this.editActivating}><Text>Edit</Text></Button>
+                                    <Input value={item} onChangeText={(text)=>{this.editText(text,index)}}
+                                    />
+                                    {}
                                 </ListItem>
                                 )
                             }})}
